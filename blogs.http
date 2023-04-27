@@ -1,0 +1,26 @@
+###
+GET http://localhost:3003/api/blogs
+Accept: application/json
+
+###
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Accept: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY0NGE1OTM4ZjIxYmNkNjY1ZWI2ZWUxNCIsImlhdCI6MTY4MjYwMjIzOSwiZXhwIjoxNjgyNjA1ODM5fQ.PjH_zfrlBGIuCkSbEVron-VloR4m2mevI3jxeinRPt4
+
+{
+    "title": "Another blog created with token",
+    "author": "Myself",
+    "url": "127.0.0.1",
+    "likes": 1
+}
+
+###
+DELETE http://localhost:3003/api/blogs/644a7ce4db391d5729b17c33
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY0NGE1OTM4ZjIxYmNkNjY1ZWI2ZWUxNCIsImlhdCI6MTY4MjYwMjIzOSwiZXhwIjoxNjgyNjA1ODM5fQ.PjH_zfrlBGIuCkSbEVron-VloR4m2mevI3jxeinRPt4
+
+###
+DELETE http://localhost:3003/api/blogs/644a7a660c7f9a54f831e606
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Iml2YW4iLCJpZCI6IjY0NGE4MDhmMzQzNzI1MzgwM2RhMjQ0NCIsImlhdCI6MTY4MjYwNDE5NSwiZXhwIjoxNjgyNjA3Nzk1fQ.PiznkMBanJWAzv9I1oGgDDDcl5-Ei1ftg-h4IPLFcOY
