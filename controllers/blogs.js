@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const blogsRouter = require("express").Router();
+const logger = require("../utils/logger");
 const Blog = require("../models/blog");
 const User = require("../models/user");
 
@@ -26,15 +27,16 @@ blogsRouter.post("/", async (request, response, next) => {
     });
 
     const savedBlog = await blog.save();
+    const fullSavedBlog = await savedBlog.populate("user", { name: 1, username: 1 });
     user.blogs = user.blogs.concat(savedBlog._id);
     await user.save();
-    response.status(201).json(savedBlog);
+    response.status(201).json(fullSavedBlog);
 });
 
 blogsRouter.delete("/:id", async (request, response) => {
     const decodedToken = jwt.verify(request.token, process.env.SECRET);
     if (!decodedToken.id) {
-        return response.stats(401).json({ error: "token invalid" });
+        return response.status(401).json({ error: "token invalid" });
     }
     const user = request.user;
     const blog = await Blog.findById(request.params.id);
@@ -51,11 +53,11 @@ blogsRouter.put("/:id", async (request, response) => {
 
     const updatedBlog = await Blog.findByIdAndUpdate(
         request.params.id,
-        { title: body.title, author: body.author, url: body.url, likes: body.likes },
+        { title: body.title, author: body.author, url: body.url, likes: body.likes, user: body.user },
         { new: true, runValidators: true, context: "query" }
     );
-
-    response.json(updatedBlog);
+    const fullUpdatedBlog = await updatedBlog.populate("user", { username: 1, name: 1 });
+    response.status(200).json(fullUpdatedBlog);
 });
 
 module.exports = blogsRouter;
